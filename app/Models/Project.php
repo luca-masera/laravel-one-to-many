@@ -14,6 +14,11 @@ class Project extends Model
     public function user()
     {
         return $this->belongTo(User::class);
+
+    }
+    public function type()
+    {
+        return $this->belongTo(Type::class);
     }
 
 }
