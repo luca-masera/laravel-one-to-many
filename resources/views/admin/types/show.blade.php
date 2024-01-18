@@ -1,9 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <section class="container">
-        <img src="{{ asset('storage/' . $type->name) }}">
-        <h1>{{ $type->name }}</h1>
 
-        <a href="{{ route('admin.types.edit', $type->id) }}" class="btn btn-success ">Modifica</a>
+        <h1>{{ $type->name }}</h1>
+        <ul>
+            @forelse ($type->projects as $project)
+                <li>{{ $project->title }}</li>
+            @empty
+                <li>No posts</li>
+            @endforelse
+
+        </ul>
+
+        <a href="{{ route('admin.types.edit', $type->slug) }}" class="btn btn-success ">Modifica</a>
     </section>
 @endsection

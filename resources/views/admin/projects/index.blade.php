@@ -8,9 +8,9 @@
                     <tr>
                         <td>{{ $project->title }}</td>
                         <td class="d-flex justify-content-end align-items-center">
-                            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success ">Mostra</a>
+                            <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success ">Mostra</a>
 
-                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST">
+                            <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="cancel-button">Elimina</button>
@@ -19,7 +19,7 @@
                         </td>
                     </tr>
                 @endforeach
-                <a href="{{ route('admin.projects.create', $project->id) }}" class="btn btn-success ">Crea</a>
+                <a href="{{ route('admin.projects.create', $project->slug) }}" class="btn btn-success ">Crea</a>
 
             </tbody>
         </table>

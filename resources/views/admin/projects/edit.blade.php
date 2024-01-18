@@ -2,26 +2,26 @@
 @section('content')
     <section class="container">
         <h1>Edit {{ $project->title }}</h1>
-        <form action="{{ route('admin.projects.update', $project->id) }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ route('admin.projects.update', $project->slug) }}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
 
             <div class="mb-3">
                 <label for="title">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title"
-                    required maxlength="200" value="{{ old('title', $project->title) }}">
+                    required minlength="3" maxlength="200" value="{{ old('title', $project->title) }}">
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="type_id">Select Types</label>
-                <select class="form-control @error('type_id') is-invalid @enderror" name="type_is" id="type_id">
+                <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
                     <option value="">Select Type</option>
                     @foreach ($types as $type)
-                        <option
-                            value="{{ $type->id }}"{{ old('type_id', $project->$type_id) == $type->id ? 'selected' : '' }}>
-                            {{ $type->name }}</option>
+                        <option value="{{ $type->id }}"
+                            {{ old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}>{{ $type->name }}
+                        </option>
                     @endforeach
                 </select>
                 @error('type_id')

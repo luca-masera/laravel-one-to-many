@@ -44,13 +44,13 @@ class ProjectController extends Controller
         $formData['user_id'] = $userId;
 
         if ($request->hasFile('image')) {
-            $img_path = Storage::put('uploads', $formData['image']);
+            $img_path = Storage::put('images', $formData['image']);
             //dd($path);
             $formData['image'] = $img_path;
         }
 
         $project = Project::create($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
 
     }
 
@@ -77,17 +77,18 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $formData = $request->validated();
-
+        $formData['slug'] = $project->slug;
         if ($project->title !== $formData['title']) {
             $slug = Str::slug($formData['title'], '-');
+            $formData['slug'] = $slug;
         }
 
-        $formData['slug'] = $slug;
+
         $formData['user_id'] = $project->user_id;
 
-        if ($project->hasFile('image')) {
+        if ($request->hasFile('image')) {
             if ($project->image) {
-                Storage::delete($request->image);
+                Storage::delete($project->image);
             }
             $path = Storage::put('images', $formData['image']);
             $formData['image'] = $path;
@@ -97,7 +98,7 @@ class ProjectController extends Controller
 
 
         $project->update($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**

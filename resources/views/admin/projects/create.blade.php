@@ -15,7 +15,7 @@
             </div>
             <div class="mb-3">
                 <label for="type_id">Select Types</label>
-                <select class="form-control @error('type_id') is-invalid @enderror" name="type_is" id="type_id">
+                <select class="form-control @error('type_id') is-invalid @enderror" name="type_id" id="type_id">
                     <option value="">Select Type</option>
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}"{{ old('type_id') == $type->id ? 'selected' : '' }}>
@@ -29,7 +29,7 @@
 
             <div class="mb-3">
                 <label for="body">Body</label>
-                <textarea type="text" class="form-control @error('body') is-invalid @enderror" name="body" id="body" required
+                <textarea type="text" class="form-control @error('body') is-invalid @enderror" name="body" id="body"
                     cols="30" row="5" value="{{ old('body') }}">
                 </textarea>
 
@@ -44,7 +44,7 @@
             <div class="mb-3">
                 <label for="image">Image</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
-                    id="image" value="{{ old('title') }}">
+                    id="image" value="{{ old('image') }}">
                 @error('image')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

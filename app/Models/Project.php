@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'title', 'slug', 'body', 'image'];
+    protected $fillable = ['user_id', 'title', 'slug', 'body', 'image', 'type_id'];
 
 
     public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
 
     }
     public function type()
     {
-        return $this->belongTo(Type::class);
+        return $this->belongsTo(Type::class);
     }
 
 }

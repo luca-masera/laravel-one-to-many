@@ -32,7 +32,11 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        //
+        $formData = $request->validated();
+        $slug = Str::of($formData['name'])->slug('-');
+        $formData['slug'] = $slug;
+        $type = Type::create($formData);
+        return redirect()->route('admin.types.show', $type->slug);
     }
 
     /**
@@ -56,7 +60,15 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $formData = $request->validated();
+        $formData['slug'] = $type->slug;
+
+        if ($type->name !== $formData['name']) {
+            $slug = Str::of($formData['name'])->slug('-');
+            $formData['slug'] = $slug;
+        }
+        $type->update($formData);
+        return redirect()->route('admin.types.show', $type->slug);
     }
 
     /**
